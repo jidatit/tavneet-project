@@ -9,8 +9,28 @@ import l6 from "../../assets/l6.svg"
 import l7 from "../../assets/l7.svg"
 import l8 from "../../assets/l8.svg"
 import MapContainer from "../../components/Map/MapContainer"
+import { useEffect, useState } from "react"
 
 function LandingPage() {
+  const [sectionHeight, setSectionHeight] = useState(false);
+
+  useEffect(() => {
+    const updateSectionHeight = () => {
+      const screenHeight = window.innerHeight;
+      if (screenHeight < 650) {
+        setSectionHeight(true);
+      } else {
+        setSectionHeight(false);
+      }
+    };
+
+    updateSectionHeight(); // Call initially
+    window.addEventListener('resize', updateSectionHeight); // Add event listener for window resize
+
+    return () => {
+      window.removeEventListener('resize', updateSectionHeight); // Remove event listener on component unmount
+    };
+  }, []);
 
   return (
     <div className="font-poppins bg-black">
@@ -18,7 +38,7 @@ function LandingPage() {
       <Header />
 
       {/* hero section responsive  */}
-      <section className=" text-white w-full md:pt-[40px] pt-[120px] h-screen flex items-center justify-start px-5 md:px-20">
+      <section className={`text-white w-full md:pt-[40px] pt-[120px] min-h-screen ${ sectionHeight ? 'h-[800px]':'h-full'} flex items-center justify-start px-5 md:px-20`}>
         <div className=" w-full md:max-w-[50%] flex flex-col gap-6">
           <div className=" flex flex-col gap-4">
             <h2 className="text-[42px] md:text-[64px] font-bold leading-snug">Malinowski housing estate</h2>
@@ -55,7 +75,7 @@ function LandingPage() {
       </section>
 
       {/* segments section responsive */}
-      <section className=" text-white w-full h-screen flex items-center justify-start px-5 md:px-20">
+      <section className={` text-white w-full min-h-screen ${ sectionHeight ? 'h-[700px]':'h-fit'} flex items-center justify-start px-5 md:px-20`}>
         <div className=" w-full md:max-w-[50%] flex flex-col gap-6">
           <div className=" flex flex-col gap-4">
             <h2 className="text-[42px] md:block hidden md:text-[64px] font-bold leading-snug">Select your house</h2>
@@ -227,7 +247,7 @@ function LandingPage() {
       </section>
 
       {/* construction section responsive  */}
-      <section className=" text-black bg-[#eaeaea] w-full lg:h-screen gap-2 flex flex-col items-center justify-start">
+      <section className={ `text-black bg-[#eaeaea] w-full lg:min-h-screen ${ sectionHeight ? 'h-[700px]':'h-full'} gap-2 flex flex-col items-center justify-start`}>
         <div className="md:w-[95%] w-full flex flex-col justify-center items-center px-5 md:px-20">
           <div className="w-full flex-col justify-start items-center gap-4">
             <h2 className="text-[42px] md:text-[64px] mb-[30px] mt-[90px] font-bold leading-snug">Construction technology</h2>
@@ -314,7 +334,7 @@ function LandingPage() {
       </section>
 
       {/* lets talk section responsive */}
-      <section className=" text-black bg-[#e3e3e3] w-full md:h-screen gap-10 md:gap-2 flex flex-col md:flex-row items-center justify-start">
+      <section className={` text-black bg-[#e3e3e3] w-full md:min-h-screen ${ sectionHeight ? 'h-[700px]':'h-full'} gap-10 md:gap-2 flex flex-col md:flex-row items-center justify-start`}>
         <div className="md:w-[60%] border-r h-[40%] border-gray-400 w-full flex flex-col justify-center items-center px-5 md:px-20">
           <div className="w-full flex-col justify-start items-center gap-4">
             <h2 className="text-[64px] md:mt-0 mt-[40px] mb-[30px] font-bold text-5xl leading-snug">Let's talk!</h2>
