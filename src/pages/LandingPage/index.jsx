@@ -377,7 +377,7 @@ function LandingPage() {
       </section>
 
       {/* projects responsive  */}
-      <section className=" text-white bg-[#82cb8a] w-full min-h-[60vh] gap-10 md:gap-2 flex flex-col lg:flex-row items-center justify-center px-20">
+      <section className=" text-white bg-[#82cb8a] w-full min-h-[60vh] gap-10 md:gap-2 flex flex-col lg:flex-row items-center justify-center px-20 py-10">
         <div className="lg:w-[65%]">
           <p className="w-full lg:w-[70%] md:text-start text-center text-[42px] md:text-[64px] mb-[30px] mt-[30px] font-bold leading-snug">Other projects of the developer</p>
         </div>
