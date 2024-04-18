@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React from 'react'
 import PropertyCard from './Cards/PropertyCard';
 
 const dummyData = [
@@ -6,12 +6,12 @@ const dummyData = [
     { type: 'apartment', houseNumber: '12B', plotArea: 600, houseArea: 90, price: 180000, sold: false },
     { type: 'villa', houseNumber: '5C', plotArea: 1200, houseArea: 300, price: 450000, sold: true },
     { type: 'apartment', houseNumber: '22D', plotArea: 700, houseArea: 110, price: 200000, sold: false },
-  ];
+];
 
 const Segments = ({ sectionHeight }) => {
     return (
         <>
-            <section className={` text-white w-full min-h-screen ${sectionHeight ? 'h-[700px]' : 'h-fit'} flex items-center justify-start px-5 md:px-20`}>
+            <section className={`bg-transparent text-white w-full min-h-screen ${sectionHeight ? 'h-[700px]' : 'h-fit'} flex items-center justify-start px-5 md:px-20`}>
                 <div className=" w-full md:max-w-[50%] flex flex-col gap-6">
                     <div className=" flex flex-col gap-4">
                         <h2 className="text-[42px] md:block hidden md:text-[64px] font-bold leading-snug">Select your house</h2>
