@@ -13,7 +13,7 @@ function Header() {
   return (
     <>
       <div className="fixed top-0 left-0 right-0 z-40 backdrop-blur-2xl">
-        <div className="max-w-[1390px] mx-auto w-full flex items-center justify-between p-4">
+        <div className="w-full flex items-center justify-between py-4 px-5 md:px-20">
 
           {/* Icon */}
           <div className="max-w-[125px]">
