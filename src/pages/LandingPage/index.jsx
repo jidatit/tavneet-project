@@ -94,7 +94,7 @@ function LandingPage() {
 
   return (
     <div className="font-poppins bg-black">
-      {!isLoading ?
+      {
         (<>
           {/* Header done */}
           <Header />
@@ -528,8 +528,8 @@ function LandingPage() {
             </footer>
           </div>
 
-        </>) : (
-          <>
+        </>)} 
+          {isLoading&&(<>
             <div className={`fixed top-0 transition-all ease-in-out delay-200 left-0 w-screen h-full flex justify-center items-center bg-black z-50 ${isLoading ? 'opacity-100' : 'opacity-0'}`}>
               <video autoPlay loop muted className="w-full h-full object-cover">
                 <source src="\1.mp4" type="video/mp4" />
@@ -542,8 +542,7 @@ function LandingPage() {
                 </>
               )}
             </div>
-          </>)
-      }
+          </>)}
     </div >
   )
 }
