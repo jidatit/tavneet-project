@@ -51,11 +51,27 @@ function LandingPage() {
       if (sectionHeading) {
         const bounding = sectionHeading.getBoundingClientRect();
         setIsHeroVisible(bounding.top > window.innerHeight || bounding.bottom < 0);
+
+        console.log("hero", bounding.top > window.innerHeight || bounding.bottom < 0)
+        console.log("segment",bounding.top <= window.innerHeight && bounding.bottom >= 0)
+
         setIsSegmentsVisible(bounding.top <= window.innerHeight && bounding.bottom >= 0);
+
+        // const timer = setTimeout(() => {
+        //   setIsCardVideoVisible(true)
+        // }, 3000);
+    
+        return () => clearTimeout(timer);
       }
+
+      // if(isHeroVisible){
+      //   setIsCardVideoVisible(false)
+      // }
       if (card) {
         const bounding = card.getBoundingClientRect();
         setIsCardVideoVisible(bounding.top <= window.innerHeight && bounding.bottom >= 0);
+
+        console.log("card",bounding.top <= window.innerHeight && bounding.bottom >= 0)
       }
 
     };
@@ -68,6 +84,14 @@ function LandingPage() {
     };
   }, []);
 
+  useEffect(()=>{
+    const video3 = document.getElementById('segments-video2');
+      if (video3 && isSegmentsVisible) {
+        video3.currentTime = 0; // Reset video playback to the beginning
+        video3.load(); // Reload the video to ensure it starts from the beginning
+      }
+  },[isSegmentsVisible])
+
   return (
     <div className="font-poppins bg-black">
       {!isLoading ?
@@ -79,7 +103,7 @@ function LandingPage() {
             <video
               id="segments-video"
               className={`absolute inset-0 w-full h-full object-cover z-0 `}
-              src="src/assets/videos/2.mp4"
+              src="/2.mp4"
               type="video/mp4"
               muted
               playsInline
@@ -88,7 +112,7 @@ function LandingPage() {
             <video
               id="segments-video2"
               className={`absolute inset-0 w-full h-full object-cover z-0 ${isSegmentsVisible ? 'visible' : 'hidden'}`}
-              src="src/assets/videos/3.mp4"
+              src="/3.mp4"
               type="video/mp4"
               muted
               playsInline
@@ -99,7 +123,7 @@ function LandingPage() {
               <video
                 id="segments-video-card"
                 className="absolute inset-0 w-full h-full object-cover z-0 visible"
-                src="src/assets/videos/4.mp4"
+                src="/4.mp4"
                 type="video/mp4"
                 muted
                 loop
@@ -508,7 +532,7 @@ function LandingPage() {
           <>
             <div className={`fixed top-0 transition-all ease-in-out delay-200 left-0 w-screen h-full flex justify-center items-center bg-black z-50 ${isLoading ? 'opacity-100' : 'opacity-0'}`}>
               <video autoPlay loop muted className="w-full h-full object-cover">
-                <source src="src\assets\videos\1.mp4" type="video/mp4" />
+                <source src="\1.mp4" type="video/mp4" />
               </video>
               {isLoading && (
                 <>
