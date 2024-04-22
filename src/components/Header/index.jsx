@@ -10,9 +10,15 @@ function Header() {
     setShowMenu(!showMenu);
   };
 
+  if(showMenu === true){
+    document.body.style.overflow = "hidden"
+  }else {
+    document.body.style.overflow = "auto"
+  }
+
   return (
     <>
-      <div className="fixed top-0 left-0 right-0 z-40 backdrop-blur-2xl">
+      <div className="fixed top-0 left-0 right-0 z-[999] backdrop-blur-2xl">
         <div className="w-full flex items-center justify-between py-4 px-5 md:px-20">
 
           {/* Icon */}
@@ -85,7 +91,7 @@ function Header() {
         style={{ transformOrigin: 'right top' }}
         {...(showMenu ? {  } : {})}
       >
-        <div className={`pop z-50 transition-all duration-500 fixed top-0 left-0 right-0 bottom-0 bg-white overflow-y-auto ${showMenu ? ' opacity-100' : 'opacity-0'}`}>
+        <div className={`pop z-[1000] transition-all duration-500 fixed top-0 left-0 right-0 bottom-0 bg-white overflow-y-auto ${showMenu ? ' opacity-100' : 'opacity-0'}`}>
           <div className="max-w-[1350px] mx-auto flex gap-5 flex-col items-center justify-center p-4">
 
             <div className='w-full flex flex-row justify-between items-center'>
