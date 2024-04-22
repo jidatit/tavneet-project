@@ -9,7 +9,7 @@ import l6 from "../../assets/l6.svg"
 import l7 from "../../assets/l7.svg"
 import l8 from "../../assets/l8.svg"
 import MapContainer from "../../components/Map/MapContainer"
-import { useEffect, useState } from "react"
+import { useEffect, useRef, useState } from "react"
 
 function LandingPage() {
   const [sectionHeight, setSectionHeight] = useState(false);
@@ -28,6 +28,9 @@ function LandingPage() {
   const handleCardClick = () => {
     setShowVideoPlayer(true);
   };
+
+  // Variable to store the previous state of isHeroVisible
+  const isHeroVisibleRef = useRef(true); // Assuming it starts as true initially
 
   useEffect(() => {
     const timer = setTimeout(() => {
@@ -58,50 +61,64 @@ function LandingPage() {
   useEffect(() => {
     const handleScroll = () => {
       const sectionHeading = document.getElementById('SectionHeading');
-      const card = document.getElementById('firstCard');
       if (sectionHeading) {
         const bounding = sectionHeading.getBoundingClientRect();
-        setIsHeroVisible(bounding.top > window.innerHeight || bounding.bottom < 0);
-
-        console.log("hero", bounding.top > window.innerHeight || bounding.bottom < 0)
-        console.log("segment",bounding.top <= window.innerHeight && bounding.bottom >= 0)
-
-        setIsSegmentsVisible(bounding.top <= window.innerHeight && bounding.bottom >= 0);
-
-        // const timer = setTimeout(() => {
-        //   setIsCardVideoVisible(true)
-        // }, 3000);
-    
-        return () => clearTimeout(timer);
+        const isHeroVisibleNow = window.scrollY < window.innerHeight;
+  
+        if (isHeroVisibleNow !== isHeroVisibleRef.current) {
+          setIsHeroVisible(isHeroVisibleNow);
+        }
+  
+        isHeroVisibleRef.current = isHeroVisibleNow;
       }
-
-      // if(isHeroVisible){
-      //   setIsCardVideoVisible(false)
-      // }
-      if (card) {
-        const bounding = card.getBoundingClientRect();
-        setIsCardVideoVisible(bounding.top <= window.innerHeight && bounding.bottom >= 0);
-
-        console.log("card",bounding.top <= window.innerHeight && bounding.bottom >= 0)
-      }
-
     };
-
+  
+  
     window.addEventListener('scroll', handleScroll);
     handleScroll();
-
+  
     return () => {
       window.removeEventListener('scroll', handleScroll);
     };
   }, []);
+  
+
+  // useEffect(()=>{
+  //   const video3 = document.getElementById('segments-video2');
+  //     if (video3 && isSegmentsVisible) {
+  //       video3.currentTime = 0; // Reset video playback to the beginning
+  //       video3.load(); // Reload the video to ensure it starts from the beginning
+  //     }
+  // },[isSegmentsVisible])
+
+  const [firstTime, setFirstTime] = useState(true)
+  useEffect(()=>{
+    const video2 = document.getElementById('segments-video');
+    const video3 = document.getElementById('segments-video2');
+    const video4 = document.getElementById('segments-video4');
+    const video5 = document.getElementById('segments-video5');
+
+    const sectionHeading = document.getElementById('SectionHeading');
+      if (sectionHeading){
+        setFirstTime(false)
+        if(isHeroVisible && video5){
+          const childElement = video5.querySelector('video');
+          childElement.currentTime = 0;
+          childElement.load()
+        }
+
+        if(!isHeroVisible && video3){
+          const childElement = video3.querySelector('video');
+          childElement.currentTime = 0;
+          childElement.load()
+        }
+      }
+
+  },[isHeroVisible])
 
   useEffect(()=>{
-    const video3 = document.getElementById('segments-video2');
-      if (video3 && isSegmentsVisible) {
-        video3.currentTime = 0; // Reset video playback to the beginning
-        video3.load(); // Reload the video to ensure it starts from the beginning
-      }
-  },[isSegmentsVisible])
+    console.log(isHeroVisible)
+  })
 
   return (
     <div className="font-poppins bg-black">
@@ -110,38 +127,51 @@ function LandingPage() {
           {/* Header done */}
           <Header />
 
-          <div className="fixed top-0 right-0 left-0 bottom-0">
-            <video
-              id="segments-video"
-              className={`absolute inset-0 w-full h-full object-cover z-0 `}
-              src="/2.mp4"
-              type="video/mp4"
-              muted
-              playsInline
-              autoPlay
-            />
-            <video
-              id="segments-video2"
-              className={`absolute inset-0 w-full h-full object-cover z-0 ${isSegmentsVisible ? 'visible' : 'hidden'}`}
-              src="/3.mp4"
-              type="video/mp4"
-              muted
-              playsInline
-              autoPlay
-
-            />
-            {isCardVideoVisible && (
+          <div className="fixed top-0 right-0 left-0 bottom-0">               
+            <div id="segments-video2" className={`${!firstTime?"opacity-0":"opacity-100"}`}>
               <video
-                id="segments-video-card"
-                className="absolute inset-0 w-full h-full object-cover z-0 visible"
-                src="/4.mp4"
+                className={`absolute inset-0 w-full h-full object-cover z-0 `}
+                src="/2.mp4"
                 type="video/mp4"
                 muted
-                loop
                 playsInline
                 autoPlay
               />
-            )}
+            </div>
+
+            <div id="segments-video3" className={`${!isHeroVisible?"opacity-100":"opacity-0"}`}>
+              <video
+                
+                className={`absolute inset-0 w-full h-full object-cover z-0 `}
+                src="/3.mp4"
+                type="video/mp4"
+                muted
+                playsInline
+                autoPlay
+              />
+            </div>
+
+            <div id="segments-video4" className="opacity-0">
+              <video
+                className={`absolute inset-0 w-full h-full object-cover z-0 `}
+                src="/4.mp4"
+                type="video/mp4"
+                muted
+                playsInline
+                autoPlay
+              />
+            </div>
+
+            <div id="segments-video5" className={`${isHeroVisible && !firstTime?"opacity-100":"opacity-0"}`}>
+              <video  
+                className={`absolute inset-0 w-full h-full object-cover z-0 `}
+                src="/5.mp4"
+                type="video/mp4"
+                muted
+                playsInline
+                autoPlay
+              />
+            </div>
           </div>
 
           <div className="relative mb-[250px]">
