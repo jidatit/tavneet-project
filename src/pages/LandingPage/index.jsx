@@ -18,6 +18,8 @@ function LandingPage() {
   const [isSegmentsVisible, setIsSegmentsVisible] = useState(false);
   const [isCardVideoVisible, setIsCardVideoVisible] = useState(false);
 
+  const [isFirst, setIsFirst] = useState(true)
+
   useEffect(() => {
     const timer = setTimeout(() => {
       setIsLoading(false);
@@ -55,7 +57,7 @@ function LandingPage() {
         console.log("hero", bounding.top > window.innerHeight || bounding.bottom < 0)
         console.log("segment",bounding.top <= window.innerHeight && bounding.bottom >= 0)
 
-        setIsSegmentsVisible(bounding.top <= window.innerHeight && bounding.bottom >= 0);
+        setIsSegmentsVisible(window.scrollY > window.innerHeight);
 
         // const timer = setTimeout(() => {
         //   setIsCardVideoVisible(true)
@@ -85,61 +87,105 @@ function LandingPage() {
   }, []);
 
   useEffect(()=>{
-    const video3 = document.getElementById('segments-video2');
+    const video3 = document.getElementById('segments-video3');
+    const video5 = document.getElementById('segments-video5');
+    const video2 = document.getElementById('segments-video2');
+    const video4 = document.getElementById('segments-video4');
+
+      if(isFirst){
+        video5.classList.remove('visible')
+        video5.classList.add('hidden')
+      }
+
       if (video3 && isSegmentsVisible) {
         video3.currentTime = 0; // Reset video playback to the beginning
-        video3.load(); // Reload the video to ensure it starts from the beginning
       }
+
+      if (video5 && isSegmentsVisible) {
+        video5.currentTime = 0; // Reset video playback to the beginning
+      }
+
+      if(!isSegmentsVisible&&!isFirst){
+        video4.classList.toggle('hidden')
+        const timer = setTimeout(() => {
+          video5.classList.toggle('hidden')
+          video2.classList.toggle('hidden')
+        }, 5000);
+    
+        return () => clearTimeout(timer);
+      }
+
+      if(isSegmentsVisible){
+        video2.classList.toggle('hidden')
+        const timer = setTimeout(() => {
+          video3.classList.toggle('hidden')
+          video4.classList.toggle('hidden')
+        }, 3000);
+    
+        return () => clearTimeout(timer);
+      }
+
   },[isSegmentsVisible])
 
+  useEffect(()=>{
+    setIsFirst(false)
+  })
+
   return (
-    <div className="font-poppins bg-black">
+    <div className={`font-poppins bg-black  ${isLoading?'overflow-hidden':''}`} >
       {
         (<>
           {/* Header done */}
           <Header />
 
-          <div className="fixed top-0 right-0 left-0 bottom-0">
+          <div className={`fixed top-0 right-0 left-0 bottom-0 `}>
             <video
-              id="segments-video"
+              id="segments-video2"
               className={`absolute inset-0 w-full h-full object-cover z-0 `}
               src="/2.mp4"
               type="video/mp4"
               muted
               playsInline
               autoPlay
+              loop
             />
             <video
-              id="segments-video2"
+              id="segments-video3"
               className={`absolute inset-0 w-full h-full object-cover z-0 ${isSegmentsVisible ? 'visible' : 'hidden'}`}
               src="/3.mp4"
               type="video/mp4"
               muted
               playsInline
               autoPlay
-
             />
-            {isCardVideoVisible && (
-              <video
-                id="segments-video-card"
-                className="absolute inset-0 w-full h-full object-cover z-0 visible"
-                src="/4.mp4"
+            <video
+              id="segments-video4"
+              className="absolute inset-0 w-full h-full object-cover z-0 hidden"
+              src="/4.mp4"
+              type="video/mp4"
+              muted
+              loop
+              playsInline
+              autoPlay
+            />
+            <video
+                id="segments-video5"
+                className={`absolute inset-0 w-full h-full object-cover z-0 ${!isSegmentsVisible ? 'visible' : 'hidden'}`}
+                src="/5.mp4"
                 type="video/mp4"
                 muted
-                loop
                 playsInline
                 autoPlay
               />
-            )}
           </div>
 
-          <div className="relative mb-[250px]">
+          <div className={`relative mb-[250px]`}>
             <section
               id="hero-section"
               className={`relative bg-transparent text-white w-full md:pt-[40px] pt-[120px] min-h-screen ${isHeroVisible ? 'h-[800px]' : 'h-full'
                 } flex items-center justify-start px-5 md:px-20`}
             >
-              <div className="w-full md:max-w-[50%] flex flex-col gap-6 relative z-10">
+              <div className={`w-full md:max-w-[50%] flex flex-col gap-6 relative z-10 `}>
                 <div className=" flex flex-col gap-4">
                   <h2 className="text-[42px] md:text-[64px] font-bold leading-snug">Malinowski housing estate</h2>
                   <p className="text-[16px] md:text-[18px] max-w-[80%]">A quiet place in a great neighborhood. Enjoy unlimited nature and the charms of city life in Józefów.</p>
@@ -530,7 +576,7 @@ function LandingPage() {
 
         </>)} 
           {isLoading&&(<>
-            <div className={`fixed top-0 transition-all ease-in-out delay-200 left-0 w-screen h-full flex justify-center items-center bg-black z-50 ${isLoading ? 'opacity-100' : 'opacity-0'}`}>
+            <div className={`fixed top-0 transition-all  ease-in-out delay-200 left-0 w-screen h-full flex justify-center items-center bg-black z-50 ${isLoading ? 'opacity-100' : 'opacity-0'}`}>
               <video autoPlay loop muted className="w-full h-full object-cover">
                 <source src="\1.mp4" type="video/mp4" />
               </video>
