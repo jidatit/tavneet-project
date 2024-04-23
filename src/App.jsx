@@ -1,5 +1,6 @@
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom'
 import LandingPage from './pages/LandingPage'
+import ScrollToHashElement from './components/Navigation'
 
 function App() {
 
@@ -13,6 +14,7 @@ function App() {
           </Route>
 
         </Routes>
+        <ScrollToHashElement/>
       </Router>
     </>
   )

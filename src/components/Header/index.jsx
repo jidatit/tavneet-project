@@ -1,13 +1,20 @@
+/* eslint-disable react/prop-types */
 import React, { useState } from 'react';
 import weblogo from "../../assets/web.svg"
 import Grow from '@mui/material/Grow';
+import { Link } from 'react-router-dom';
 
-function Header() {
+function Header({handlecloseall}) {
   const [showMenu, setShowMenu] = useState(false);
   const [lang, setlang] = useState(false);
 
   const toggleMenu = () => {
     setShowMenu(!showMenu);
+  };
+
+  const handleclick = () => {
+    setShowMenu(false);
+    handlecloseall()
   };
 
   if (showMenu === true) {
@@ -18,7 +25,7 @@ function Header() {
 
   return (
     <>
-      <div className="fixed top-0 left-0 right-0 z-40 backdrop-blur-2xl">
+      <div className="fixed top-0 left-0 right-0 z-[999] backdrop-blur-2xl">
         <div className="max-w-[1390px] mx-auto w-full flex items-center justify-between p-4">
 
           {/* Icon */}
@@ -43,18 +50,18 @@ function Header() {
           </div>
           {/* Menu items */}
           <div className="hidden lg:flex gap-6 uppercase text-white">
-            <div className="cursor-pointer group">
+            <Link onClick={handleclick} to="/#appartments" className="cursor-pointer group">
               <p className="mb-1 px-2">Apartments</p>
               <div className="w-full h-[1px] bg-white group-hover:block hidden"></div>
-            </div>
-            <div className="cursor-pointer group">
+            </Link>
+            <Link onClick={handleclick} to="/#map" className="cursor-pointer group">
               <p className="mb-1 px-2">Map</p>
               <div className="w-full h-[1px] bg-white group-hover:block hidden"></div>
-            </div>
-            <div className="cursor-pointer group">
+            </Link>
+            <Link onClick={handleclick} to="/#gallery" className="cursor-pointer group">
               <p className="mb-1 px-2">Gallery</p>
               <div className="w-full h-[1px] bg-white group-hover:block hidden"></div>
-            </div>
+            </Link>
           </div>
           {/* Contact button */}
           <div className='hidden lg:block'>
@@ -80,7 +87,7 @@ function Header() {
             </div>
 
             <div className="hidden lg:inline-block">
-              <button className="text-black bg-white py-3 px-5 shadow-md rounded-full">Contact Us</button>
+              <Link onClick={handleclick} to="/#contact" className="text-black bg-white py-3 px-5 shadow-md rounded-full">Contact Us</Link>
             </div>
           </div>
         </div>
@@ -92,7 +99,7 @@ function Header() {
         style={{ transformOrigin: 'right top' }}
         {...(showMenu ? {} : {})}
       >
-        <div className={`pop z-50 transition-all duration-500 fixed top-0 left-0 right-0 bottom-0 bg-white overflow-y-auto ${showMenu ? ' opacity-100' : 'opacity-0'}`}>
+        <div className={`pop z-[1000] transition-all duration-500 fixed top-0 left-0 right-0 bottom-0 bg-white overflow-y-auto ${showMenu ? ' opacity-100' : 'opacity-0'}`}>
           <div className="max-w-[1350px] mx-auto flex gap-5 flex-col items-center justify-center p-4">
 
             <div className='w-full flex flex-row justify-between items-center'>
@@ -121,19 +128,19 @@ function Header() {
             </div>
 
             <div className='w-full flex flex-col justify-center gap-0 items-center'>
-              <div className='w-full flex flex-col justify-center items-start border-t-[2px] border-b-[2px] border-[#e5e7eb] py-3 '>
+              <Link onClick={handleclick} to="/#appartments" className='w-full flex flex-col justify-center items-start border-t-[2px] border-b-[2px] border-[#e5e7eb] py-3 '>
                 <h1 className='text-[28px] text-black text-start font-extrabold'>Apartments</h1>
-              </div>
-              <div className='w-full flex flex-col justify-center items-start py-3 '>
+              </Link>
+              <Link onClick={handleclick} to="/#map" className='w-full flex flex-col justify-center items-start py-3 '>
                 <h1 className='text-[28px] text-black text-start font-extrabold'>Map</h1>
-              </div>
-              <div className='w-full flex flex-col justify-center items-start border-t-[2px] border-b-[2px] border-[#e5e7eb] py-3 '>
+              </Link>
+              <Link onClick={handleclick} to="/#gallery" className='w-full flex flex-col justify-center items-start border-t-[2px] border-b-[2px] border-[#e5e7eb] py-3 '>
                 <h1 className='text-[28px] text-black text-start font-extrabold'>Gallery</h1>
-              </div>
+              </Link>
             </div>
 
             <div className='w-full flex mt-[30px] flex-row gap-3 justify-center items-center'>
-              <button className='w-[70%] uppercase rounded-[30px] text-[14px] font-semibold text-white bg-[#333333] py-3'>contact us</button>
+              <Link onClick={handleclick} to="/#contact" className='w-[70%] flex justify-center items-center uppercase rounded-[30px] text-[14px] font-semibold text-white bg-[#333333] py-3'>contact us</Link>
 
               <div className="rounded-full bg-transparent border-black border-[1px] flex flex-col justify-center items-center p-3">
                 <svg stroke="currentColor" fill="currentColor" stroke-width="0" viewBox="0 0 24 24" height="1em" width="1em" xmlns="http://www.w3.org/2000/svg"><path d="M16.57 22a2 2 0 0 0 1.43-.59l2.71-2.71a1 1 0 0 0 0-1.41l-4-4a1 1 0 0 0-1.41 0l-1.6 1.59a7.55 7.55 0 0 1-3-1.59 7.62 7.62 0 0 1-1.59-3l1.59-1.6a1 1 0 0 0 0-1.41l-4-4a1 1 0 0 0-1.41 0L2.59 6A2 2 0 0 0 2 7.43 15.28 15.28 0 0 0 6.3 17.7 15.28 15.28 0 0 0 16.57 22zM6 5.41 8.59 8 7.3 9.29a1 1 0 0 0-.3.91 10.12 10.12 0 0 0 2.3 4.5 10.08 10.08 0 0 0 4.5 2.3 1 1 0 0 0 .91-.27L16 15.41 18.59 18l-2 2a13.28 13.28 0 0 1-8.87-3.71A13.28 13.28 0 0 1 4 7.41zM20 11h2a8.81 8.81 0 0 0-9-9v2a6.77 6.77 0 0 1 7 7z"></path><path d="M13 8c2.1 0 3 .9 3 3h2c0-3.22-1.78-5-5-5z"></path></svg>
