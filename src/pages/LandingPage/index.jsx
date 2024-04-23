@@ -1,5 +1,5 @@
 import Header from "../../components/Header"
-import marker from "../../assets/maps-and-flags.png"
+import markerheroicon from "../../assets/maps-and-flags.png"
 import markericon from "../../assets/m.png"
 import caricon from "../../assets/c.jpg"
 import logo from "../../assets/logo.png"
@@ -14,6 +14,9 @@ import logo from "../../assets/logo.png"
 import MapContainer from "../../components/Map/MapContainer"
 import { useEffect, useRef, useState } from "react"
 import Gallery from "./Gallery/Gallery"
+import bedimg from "../../assets/a1/bed.png"
+import kitimg from "../../assets/a1/kit.png"
+import loungeimg from "../../assets/a1/lounge.png"
 
 function LandingPage() {
   const [sectionHeight, setSectionHeight] = useState(false);
@@ -23,10 +26,10 @@ function LandingPage() {
   const [isCardVideoVisible, setIsCardVideoVisible] = useState(false);
   const [showVideoPlayer, setShowVideoPlayer] = useState(false);
   const [showVideoPlayerInterior, setShowVideoPlayerInterior] = useState(false);
-  const [videopop, setvideopop] = useState(false);
+  const [modalpop, setmodalpop] = useState(false);
 
-  const handlevideopop = () => {
-    setvideopop(!videopop)
+  const handlemodalpop = () => {
+    setmodalpop(!modalpop)
   }
 
   const handleCardClick = () => {
@@ -78,14 +81,14 @@ function LandingPage() {
         setIsHeroVisible(bounding.top > window.innerHeight || bounding.bottom < 0);
 
         console.log("hero", bounding.top > window.innerHeight || bounding.bottom < 0)
-        console.log("segment",bounding.top <= window.innerHeight && bounding.bottom >= 0)
+        console.log("segment", bounding.top <= window.innerHeight && bounding.bottom >= 0)
 
         setIsSegmentsVisible(window.scrollY > window.innerHeight);
 
         // const timer = setTimeout(() => {
         //   setIsCardVideoVisible(true)
         // }, 3000);
-    
+
         return () => clearTimeout(timer);
       }
 
@@ -96,7 +99,7 @@ function LandingPage() {
         const bounding = card.getBoundingClientRect();
         setIsCardVideoVisible(bounding.top <= window.innerHeight && bounding.bottom >= 0);
 
-        console.log("card",bounding.top <= window.innerHeight && bounding.bottom >= 0)
+        console.log("card", bounding.top <= window.innerHeight && bounding.bottom >= 0)
       }
 
     };
@@ -109,50 +112,71 @@ function LandingPage() {
     };
   }, []);
 
-  useEffect(()=>{
+  useEffect(() => {
     const video3 = document.getElementById('segments-video3');
     const video5 = document.getElementById('segments-video5');
     const video2 = document.getElementById('segments-video2');
     const video4 = document.getElementById('segments-video4');
 
-      if(isFirst){
-        video5.classList.remove('visible')
-        video5.classList.add('hidden')
-      }
+    if (isFirst) {
+      video5.classList.remove('visible')
+      video5.classList.add('hidden')
+    }
 
-      if (video3 && isSegmentsVisible) {
-        video3.currentTime = 0; // Reset video playback to the beginning
-      }
+    if (video3 && isSegmentsVisible) {
+      video3.currentTime = 0; // Reset video playback to the beginning
+    }
 
-      if (video5 && isSegmentsVisible) {
-        video5.currentTime = 0; // Reset video playback to the beginning
-      }
+    if (video5 && isSegmentsVisible) {
+      video5.currentTime = 0; // Reset video playback to the beginning
+    }
 
-      if(!isSegmentsVisible&&!isFirst){
-        video4.classList.toggle('hidden')
-        const timer = setTimeout(() => {
-          video5.classList.toggle('hidden')
-          video2.classList.toggle('hidden')
-        }, 5000);
-    
-        return () => clearTimeout(timer);
-      }
-
-      if(isSegmentsVisible){
+    if (!isSegmentsVisible && !isFirst) {
+      video4.classList.toggle('hidden')
+      const timer = setTimeout(() => {
+        video5.classList.toggle('hidden')
         video2.classList.toggle('hidden')
-        const timer = setTimeout(() => {
-          video3.classList.toggle('hidden')
-          video4.classList.toggle('hidden')
-        }, 3000);
-    
-        return () => clearTimeout(timer);
-      }
+      }, 5000);
 
-  },[isSegmentsVisible])
+      return () => clearTimeout(timer);
+    }
 
-  useEffect(()=>{
+    if (isSegmentsVisible) {
+      video2.classList.toggle('hidden')
+      const timer = setTimeout(() => {
+        video3.classList.toggle('hidden')
+        video4.classList.toggle('hidden')
+      }, 3000);
+
+      return () => clearTimeout(timer);
+    }
+
+  }, [isSegmentsVisible])
+
+  useEffect(() => {
     setIsFirst(false)
   })
+
+  const [playInt, setplayInt] = useState(false);
+  const [gotoextvideo, setgotoextvideo] = useState(false);
+  const [closeapartment, setcloseapartment] = useState(false);
+
+  const handlecloseapartment = () => {
+    setcloseapartment(true)
+    setShowVideoPlayerInterior(false); setplayInt(false); setgotoextvideo(false)
+  }
+
+  const handleplayInt = () => {
+    console.log("played")
+    setplayInt(true)
+  }
+
+  const [marker, setmarker] = useState("");
+
+  const handlemarkerclick = (srcmarker) => {
+    setmodalpop(true)
+    setmarker(srcmarker)
+  }
 
   return (
     <div className={`font-poppins bg-black `} >
@@ -192,14 +216,14 @@ function LandingPage() {
               autoPlay
             />
             <video
-                id="segments-video5"
-                className={`absolute inset-0 w-full h-full object-cover z-0 ${!isSegmentsVisible ? 'visible' : 'hidden'}`}
-                src="/5.mp4"
-                type="video/mp4"
-                muted
-                playsInline
-                autoPlay
-              />
+              id="segments-video5"
+              className={`absolute inset-0 w-full h-full object-cover z-0 ${!isSegmentsVisible ? 'visible' : 'hidden'}`}
+              src="/5.mp4"
+              type="video/mp4"
+              muted
+              playsInline
+              autoPlay
+            />
           </div>
 
           <div className={`relative mb-[250px]`}>
@@ -217,7 +241,7 @@ function LandingPage() {
                   <button className=" text-black bg-white py-2 px-4 shadow-md rounded-full uppercase text-base">Pick an apartment</button>
                   <div className=" flex gap-3 items-center">
                     <div className=" p-3 rounded-full border border-white">
-                      <img className=" max-w-[18px]" src={marker} />
+                      <img className=" max-w-[18px]" src={markerheroicon} />
                     </div>
                     <div className=" text-sm font-semibold">
                       <p>1026 1st Ave</p>
@@ -268,25 +292,6 @@ function LandingPage() {
                       <p className=" text-xs py-1 px-2 md:px-[42px] rounded-md bg-[#404040] text-white">sold</p>
                     </div>
                   </div>
-                  <div onClick={handleCardClick} className="md:w-fit py-3 px-7 rounded-lg border border-[#404040] bg-[rgba(0,0,0,0.6)] flex uppercase cursor-pointer hover:bg-white hover:text-gray-400 ">
-                    <div className="flex flex-col gap-2 pr-6 border-r border-[#404040] ">
-                      <p className=" text-[10px]">Apt</p>
-                      <p className=" text-base">1504</p>
-                    </div>
-                    <div className="flex flex-col gap-2 pl-6 ">
-                      <p className=" text-[10px]">TORONTO</p>
-                      <p className=" text-[10px]">LAKE</p>
-                      <p className=" text-[10px]">VIEW</p>
-                    </div>
-                    <div className="flex flex-col gap-2 pl-6 ">
-                      <p className=" text-[10px]">Apt Sq.ft</p>
-                      <p className=" text-base">950</p>
-                    </div>
-                    <div className="flex flex-col gap-2 pl-6 ">
-                      <p className=" text-[10px]">2.8 Mil</p>
-                      <p className=" text-xs py-1 px-1 md:px-6 rounded-md bg-[#404040] text-white">Available</p>
-                    </div>
-                  </div>
                   <div onClick={handleCardClick} id="firstCard" className="md:w-fit py-3 px-7 rounded-lg border border-[#404040] bg-[rgba(0,0,0,0.6)] flex uppercase cursor-pointer hover:bg-white hover:text-gray-400 ">
                     <div className="flex flex-col gap-2 pr-6 border-r border-[#404040] ">
                       <p className=" text-[10px]">Apt</p>
@@ -314,168 +319,218 @@ function LandingPage() {
                   <div onClick={handleCardClick} className="md:w-[55%] py-3 px-7 flex flex-col justify-center items-center rounded-lg border border-[#404040] bg-[rgba(0,0,0,0.6)] uppercase cursor-pointer hover:bg-white hover:text-gray-400 ">
                     <p>Common Lounge</p>
                   </div>
-                  {showVideoPlayer && (
-                    <div id="video-container" className="w-full h-full bg-black fixed top-0 left-0 z-10">
-                      <video
-                        id="segments-video"
-                        className={`absolute inset-0 w-full h-[50vh] md:h-full object-cover z-0 `}
-                        src="/ex.mp4"
-                        type="video/mp4"
-                        muted
-                        playsInline
-                        autoPlay
-                      />
-                    </div>
-                  )}
-                  {showVideoPlayerInterior && (
-                    <div id="video-container" className="w-full h-full bg-black fixed top-0 left-0 z-10">
-                      <video
-                        id="segments-video"
-                        className={`absolute inset-0 w-full h-[50vh] md:h-full object-cover z-0 `}
-                        src="/in.mp4"
-                        type="video/mp4"
-                        muted
-                        playsInline
-                        autoPlay
-                      />
-                    </div>
-                  )}
-                  {showVideoPlayer && (
-                    <div className="fixed top-0 left-0 w-full h-full flex md:flex-row flex-col-reverse items-center justify-start  md:py-10 md:px-10 z-20">
-                      <div className="lg:w-[35%] gap-1 pt-10 px-5 md:p-5 flex flex-col justify-start items-start bg-transparent">
-                        <div className="flex mb-[20px] flex-row items-center justify-center gap-2">
-                          <button
-                            className="rounded-full text-black bg-white p-2"
-                            onClick={() => { setShowVideoPlayer(false); setShowVideoPlayerInterior(false) }}
-                          >
-                            <svg
-                              xmlns="http://www.w3.org/2000/svg"
-                              className="h-5 w-5 text-black"
-                              fill="none"
-                              viewBox="0 0 24 24"
-                              stroke="currentColor"
-                            >
-                              <path
-                                strokeLinecap="round"
-                                strokeLinejoin="round"
-                                strokeWidth={2}
-                                d="M10 19l-7-7m0 0l7-7m-7 7h18"
-                              />
-                            </svg>
-                          </button>
-                          <p className="text-white font-bold">TO HOUSE LIST</p>
-                        </div>
-                        <div className="w-full flex flex-col justify-center items-center backdrop-blur-1xl border-[#7a7a7a] bg-[rgba(0,0,0,0.6)] shadow-lg isolate rounded-[20px]">
-                          <div className="w-full py-3 px-7 grid grid-cols-4 justify-center items-center rounded-lg">
-                            <div className="flex flex-col justify-center items-center gap-2 pr-6">
-                              <p className=" text-3xl">E38</p>
-                            </div>
-                            <div className="flex flex-col justify-center items-center gap-2  ">
-                              <p className=" text-[10px]">house</p>
-                              <p className=" text-base">38A</p>
-                            </div>
-                            <div className="flex flex-col justify-center items-center gap-2  ">
-                              <p className=" text-[10px]">Plot, M²</p>
-                              <p className=" text-base">900</p>
-                            </div>
-                            <div className="flex flex-col justify-center items-center gap-2">
-                              <p className=" text-[10px]">House, M²</p>
-                              <p className=" text-base">147</p>
-                            </div>
-                          </div>
-                        </div>
-                        <div className="w-full flex flex-col justify-center items-center backdrop-blur-1xl border-[#7a7a7a] bg-[rgba(0,0,0,0.6)] shadow-lg isolate rounded-[20px]">
-                          <div className="w-full py-3 gap-y-5 gap-x-4 px-7 grid grid-cols-4 justify-center items-center rounded-lg">
-                            <div className="flex flex-col justify-center items-start gap-2 ">
-                              <p className=" text-[10px]">Date</p>
-                              <p className=" text-1xl">3Q/2023</p>
-                            </div>
-                            <div className="flex flex-col justify-center items-center gap-2  ">
-                              <p className=" text-[10px]">house</p>
-                              <p className=" text-base">38A</p>
-                            </div>
-                            <div className="flex flex-col justify-center items-center gap-2  ">
-                              <p className=" text-[10px]">Plot, M²</p>
-                              <p className=" text-base">900</p>
-                            </div>
-                            <div className="flex flex-col justify-center items-center gap-2">
-                              <p className=" text-[10px]">House, M²</p>
-                              <p className=" text-base">147</p>
-                            </div>
-                            <div className="flex flex-col justify-center items-start gap-2 pr-6"></div>
-                            <div className="flex flex-col justify-center items-center gap-2  ">
-                              <p className=" text-[10px]">house</p>
-                              <p className=" text-base">38A</p>
-                            </div>
-                            <div className="flex flex-col justify-center items-center gap-2  ">
-                              <p className=" text-[10px]">Plot, M²</p>
-                              <p className=" text-base">900</p>
-                            </div>
-                            <div className="flex flex-col justify-center items-center gap-2">
-                              <p className=" text-[10px]">House, M²</p>
-                              <p className=" text-base">147</p>
-                            </div>
-                            <div className="flex flex-col justify-center items-start gap-2 pr-6"></div>
-                            <div className="flex flex-col justify-center items-center gap-2 pr-6 "></div>
-                            <div className="flex flex-col justify-center items-center gap-2 pr-6 "></div>
-                          </div>
-                          <div className="border-[#e0dfdf] px-3 w-[95%] border-t-[1px]"></div>
-                          <div className="w-full py-3 px-3 flex flex-row justify-between items-center">
-                            <div className="flex flex-col justify-center items-start gap-2 py-2">
-                              <p className="text-[10px]">HOUSE DOCUMENTATION</p>
-                              <p className="text-[12px]">HOUSE DOCUMENTATION</p>
-                            </div>
-                            <button className=" px-5 md:px-10 py-3 text-[14px] font-bold rounded-[30px] bg-white text-black uppercase">Book a call</button>
-                          </div>
-                        </div>
-                        <div className="flex mb-[20px] flex-col lg:flex-row items-center justify-center gap-2 w-full">
-                          {showVideoPlayer === true && showVideoPlayerInterior === false && (
-                            <button
-                              className="px-5 mt-[10px] py-3 text-[14px] font-bold rounded-[30px] text-black uppercase bg-white p-2 md:w-fit w-full"
-                              onClick={() => setShowVideoPlayerInterior(true)}
-                            >
-                              View interior
-                            </button>
-                          )}
-                          {showVideoPlayer === true && showVideoPlayerInterior === true && (
-                            <button
-                              className="px-5 mt-[10px] py-3 text-[14px] font-bold rounded-[30px] text-black uppercase bg-white p-2 md:w-fit w-full"
-                              onClick={() => { setShowVideoPlayerInterior(false); setShowVideoPlayer(true); }}
-                            >
-                              View Exterior
-                            </button>
-                          )}
-                        </div>
+                  {/* for apartment one */}
+                  <>
+                    {showVideoPlayer === true && gotoextvideo === false && (
+                      <div id="video-container" className="w-full h-full bg-black fixed top-0 left-0 z-10">
+                        <video
+                          id="segments-video"
+                          className={`absolute inset-0 w-full h-[50vh] md:h-full object-cover z-0 `}
+                          src="/a1/A1fc.mp4"
+                          type="video/mp4"
+                          muted
+                          playsInline
+                          autoPlay
+                        />
                       </div>
-                      {showVideoPlayerInterior && (<div className="lg:w-[40%] w-full relative gap-1 p-5 flex flex-col justify-start items-start bg-transparent">
-                        <div onClick={handlevideopop} className="absolute cursor-pointer  top-[10%] right-[10%]">
-                          <svg stroke="currentColor" fill="currentColor" stroke-width="0" viewBox="0 0 384 512" height="2em" width="2em" xmlns="http://www.w3.org/2000/svg"><path d="M172.268 501.67C26.97 291.031 0 269.413 0 192 0 85.961 85.961 0 192 0s192 85.961 192 192c0 77.413-26.97 99.031-172.268 309.67-9.535 13.774-29.93 13.773-39.464 0zM192 272c44.183 0 80-35.817 80-80s-35.817-80-80-80-80 35.817-80 80 35.817 80 80 80z"></path></svg>
-                        </div>
-                        <div onClick={handlevideopop} className="absolute top-[30%] cursor-pointer right-[40%]">
-                          <svg stroke="currentColor" fill="currentColor" stroke-width="0" viewBox="0 0 384 512" height="2em" width="2em" xmlns="http://www.w3.org/2000/svg"><path d="M172.268 501.67C26.97 291.031 0 269.413 0 192 0 85.961 85.961 0 192 0s192 85.961 192 192c0 77.413-26.97 99.031-172.268 309.67-9.535 13.774-29.93 13.773-39.464 0zM192 272c44.183 0 80-35.817 80-80s-35.817-80-80-80-80 35.817-80 80 35.817 80 80 80z"></path></svg>
-                        </div>
-                      </div>)}
-                      {videopop && (
-                        <>
-                          <div className="fixed top-[30px] left-0 w-full h-full flex justify-center items-center bg-black bg-opacity-50">
-                            <div className="bg-white relative w-[90%] md:w-[60%] text-black p-1 rounded">
-                              <svg onClick={handlevideopop} className="absolute hover:text-white z-[10] transition-all ease-in-out delay-100 top-3 md:top-5 right-3 md:right-5 cursor-pointer w-8 h-8 md:w-[50px] md:h-[50px]" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor">
-                                <path strokeLinecap="round" strokeLinejoin="round" d="m9.75 9.75 4.5 4.5m0-4.5-4.5 4.5M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z" />
+                    )}
+                    {closeapartment && (
+                      <div id="video-container" className="w-full h-full bg-black fixed top-0 left-0 z-10">
+                        <video
+                          onEnded={() => { setShowVideoPlayer(false); setShowVideoPlayerInterior(false); setplayInt(false); setgotoextvideo(false); setcloseapartment(false) }}
+                          id="segments-video"
+                          className={`absolute inset-0 w-full h-[50vh] md:h-full object-cover z-0 `}
+                          src="/a1/A1gotolist.mp4"
+                          type="video/mp4"
+                          muted
+                          playsInline
+                          autoPlay
+                        />
+                      </div>
+                    )}
+                    {gotoextvideo && (
+                      <div id="video-container" className="w-full h-full bg-black fixed top-0 left-0 z-10">
+                        <video
+                          id="segments-video"
+                          className={`absolute inset-0 w-full h-[50vh] md:h-full object-cover z-0 `}
+                          src="/a1/A1gotoext.mp4"
+                          type="video/mp4"
+                          muted
+                          playsInline
+                          autoPlay
+                        />
+                      </div>
+                    )}
+                    {showVideoPlayerInterior && (
+                      <div id="video-container" className="w-full h-full bg-black fixed top-0 left-0 z-10">
+                        <video
+                          onEnded={handleplayInt}
+                          id="segments-video"
+                          className={`absolute inset-0 w-full h-[50vh] md:h-full object-cover z-0 `}
+                          src="/a1/A1gotoint.mp4"
+                          type="video/mp4"
+                          muted
+                          playsInline
+                          autoPlay
+                        />
+                        {playInt && (<video
+                          id="segments-video"
+                          onEnded={() => setgotoextvideo(false)}
+                          className={`absolute inset-0 w-full h-[50vh] md:h-full object-cover z-0 `}
+                          src="/a1/A1int.mp4"
+                          type="video/mp4"
+                          muted
+                          playsInline
+                          autoPlay
+                        />)}
+                      </div>
+                    )}
+                    {showVideoPlayer && (
+                      <div className="fixed top-0 left-0 w-full h-full flex md:flex-row flex-col-reverse items-center justify-start  md:py-10 md:px-10 z-20">
+                        <div className="lg:w-[35%] gap-1 pt-10 px-5 md:p-5 flex flex-col justify-start items-start bg-transparent">
+                          <div className="flex mb-[20px] flex-row items-center justify-center gap-2">
+                            <button
+                              className="rounded-full text-black bg-white p-2"
+                              onClick={handlecloseapartment}
+                            // () => { setShowVideoPlayer(false); setShowVideoPlayerInterior(false); setplayInt(false); setgotoextvideo(false) }
+                            >
+                              <svg
+                                xmlns="http://www.w3.org/2000/svg"
+                                className="h-5 w-5 text-black"
+                                fill="none"
+                                viewBox="0 0 24 24"
+                                stroke="currentColor"
+                              >
+                                <path
+                                  strokeLinecap="round"
+                                  strokeLinejoin="round"
+                                  strokeWidth={2}
+                                  d="M10 19l-7-7m0 0l7-7m-7 7h18"
+                                />
                               </svg>
-                              <video
-                                src="/pop.mp4"
-                                type="video/mp4"
-                                muted
-                                playsInline
-                                autoPlay
-                                controls
-                              />
+                            </button>
+                            <p className="text-white font-bold">TO HOUSE LIST</p>
+                          </div>
+
+                          <div className={`w-full ${showVideoPlayerInterior !== true ? "flex" : "md:hidden flex"} gap-1 pt-10 px-5 md:p-5 flex-col justify-start items-start bg-transparent`}>
+                            <div className={`w-full flex flex-col justify-center items-center backdrop-blur-1xl border-[#7a7a7a] bg-[rgba(0,0,0,0.6)] shadow-lg isolate rounded-[20px]`}>
+                              <div className="w-full py-3 px-7 grid grid-cols-4 justify-center items-center rounded-lg">
+                                <div className="flex flex-col justify-center items-center gap-2 pr-6">
+                                  <p className=" text-3xl">E38</p>
+                                </div>
+                                <div className="flex flex-col justify-center items-center gap-2  ">
+                                  <p className=" text-[10px]">house</p>
+                                  <p className=" text-base">38A</p>
+                                </div>
+                                <div className="flex flex-col justify-center items-center gap-2  ">
+                                  <p className=" text-[10px]">Plot, M²</p>
+                                  <p className=" text-base">900</p>
+                                </div>
+                                <div className="flex flex-col justify-center items-center gap-2">
+                                  <p className=" text-[10px]">House, M²</p>
+                                  <p className=" text-base">147</p>
+                                </div>
+                              </div>
+                            </div>
+                            <div className="w-full flex flex-col justify-center items-center backdrop-blur-1xl border-[#7a7a7a] bg-[rgba(0,0,0,0.6)] shadow-lg isolate rounded-[20px]">
+                              <div className="w-full py-3 gap-y-5 gap-x-4 px-7 grid grid-cols-4 justify-center items-center rounded-lg">
+                                <div className="flex flex-col justify-center items-start gap-2 ">
+                                  <p className=" text-[10px]">Date</p>
+                                  <p className=" text-1xl">3Q/2023</p>
+                                </div>
+                                <div className="flex flex-col justify-center items-center gap-2  ">
+                                  <p className=" text-[10px]">house</p>
+                                  <p className=" text-base">38A</p>
+                                </div>
+                                <div className="flex flex-col justify-center items-center gap-2  ">
+                                  <p className=" text-[10px]">Plot, M²</p>
+                                  <p className=" text-base">900</p>
+                                </div>
+                                <div className="flex flex-col justify-center items-center gap-2">
+                                  <p className=" text-[10px]">House, M²</p>
+                                  <p className=" text-base">147</p>
+                                </div>
+                                <div className="flex flex-col justify-center items-start gap-2 pr-6"></div>
+                                <div className="flex flex-col justify-center items-center gap-2  ">
+                                  <p className=" text-[10px]">house</p>
+                                  <p className=" text-base">38A</p>
+                                </div>
+                                <div className="flex flex-col justify-center items-center gap-2  ">
+                                  <p className=" text-[10px]">Plot, M²</p>
+                                  <p className=" text-base">900</p>
+                                </div>
+                                <div className="flex flex-col justify-center items-center gap-2">
+                                  <p className=" text-[10px]">House, M²</p>
+                                  <p className=" text-base">147</p>
+                                </div>
+                                <div className="flex flex-col justify-center items-start gap-2 pr-6"></div>
+                                <div className="flex flex-col justify-center items-center gap-2 pr-6 "></div>
+                                <div className="flex flex-col justify-center items-center gap-2 pr-6 "></div>
+                              </div>
+                              <div className="border-[#e0dfdf] px-3 w-[95%] border-t-[1px]"></div>
+                              <div className="w-full py-3 px-3 flex flex-row justify-between items-center">
+                                <div className="flex flex-col justify-center items-start gap-2 py-2">
+                                  <p className="text-[10px]">HOUSE DOCUMENTATION</p>
+                                  <p className="text-[12px]">HOUSE DOCUMENTATION</p>
+                                </div>
+                                <button className=" px-3 md:px-10 py-3 text-[12px] md:text-[14px] font-bold rounded-[30px] bg-white text-black uppercase">Book a call</button>
+                              </div>
                             </div>
                           </div>
-                        </>
-                      )}
-                    </div>
-                  )}
+
+                          <div className="flex mb-[20px] flex-col lg:flex-row items-center justify-center gap-2 w-full">
+                            {showVideoPlayer === true && showVideoPlayerInterior === false && (
+                              <button
+                                className="px-5 mt-[10px] py-3 text-[14px] font-bold rounded-[30px] text-black uppercase bg-white p-2 md:w-fit w-full"
+                                onClick={() => { setShowVideoPlayerInterior(true); setplayInt(false) }}
+                              >
+                                View interior
+                              </button>
+                            )}
+                            {showVideoPlayer === true && showVideoPlayerInterior === true && (
+                              <button
+                                className="px-5 mt-[10px] py-3 text-[14px] font-bold rounded-[30px] text-black uppercase bg-white p-2 md:w-fit w-full"
+                                onClick={() => { setShowVideoPlayerInterior(false); setgotoextvideo(true); setShowVideoPlayer(true); setplayInt(false) }}
+                              >
+                                View Exterior
+                              </button>
+                            )}
+                          </div>
+                        </div>
+                        {showVideoPlayerInterior && playInt && (<div className="lg:w-[40%] w-full md:h-0 h-full relative gap-1 p-5 flex flex-col justify-start items-start bg-transparent">
+                          <div onClick={()=>handlemarkerclick("m1")} className="absolute cursor-pointer top-[10%] left-[2%]">
+                            <svg stroke="currentColor" fill="currentColor" stroke-width="0" viewBox="0 0 384 512" height="2em" width="2em" xmlns="http://www.w3.org/2000/svg"><path d="M172.268 501.67C26.97 291.031 0 269.413 0 192 0 85.961 85.961 0 192 0s192 85.961 192 192c0 77.413-26.97 99.031-172.268 309.67-9.535 13.774-29.93 13.773-39.464 0zM192 272c44.183 0 80-35.817 80-80s-35.817-80-80-80-80 35.817-80 80 35.817 80 80 80z"></path></svg>
+                          </div>
+                          <div onClick={()=>handlemarkerclick("m2")} className="absolute top-[30%] cursor-pointer right-[15%]">
+                            <svg stroke="currentColor" fill="currentColor" stroke-width="0" viewBox="0 0 384 512" height="2em" width="2em" xmlns="http://www.w3.org/2000/svg"><path d="M172.268 501.67C26.97 291.031 0 269.413 0 192 0 85.961 85.961 0 192 0s192 85.961 192 192c0 77.413-26.97 99.031-172.268 309.67-9.535 13.774-29.93 13.773-39.464 0zM192 272c44.183 0 80-35.817 80-80s-35.817-80-80-80-80 35.817-80 80 35.817 80 80 80z"></path></svg>
+                          </div>
+                          <div onClick={()=>handlemarkerclick("m3")} className="absolute top-[30%] cursor-pointer right-[40%]">
+                            <svg stroke="currentColor" fill="currentColor" stroke-width="0" viewBox="0 0 384 512" height="2em" width="2em" xmlns="http://www.w3.org/2000/svg"><path d="M172.268 501.67C26.97 291.031 0 269.413 0 192 0 85.961 85.961 0 192 0s192 85.961 192 192c0 77.413-26.97 99.031-172.268 309.67-9.535 13.774-29.93 13.773-39.464 0zM192 272c44.183 0 80-35.817 80-80s-35.817-80-80-80-80 35.817-80 80 35.817 80 80 80z"></path></svg>
+                          </div>
+                        </div>)}
+                        {modalpop && (
+                          <>
+                            <div className="fixed top-0 left-0 w-full h-full flex justify-center items-center bg-black bg-opacity-50">
+                              <div className="bg-white relative w-[90%] md:w-[60%] text-black p-1 rounded">
+                                <svg onClick={handlemodalpop} className="absolute hover:text-white z-[10] transition-all ease-in-out delay-100 top-3 md:top-5 right-3 md:right-5 cursor-pointer w-8 h-8 md:w-[50px] md:h-[50px]" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor">
+                                  <path strokeLinecap="round" strokeLinejoin="round" d="m9.75 9.75 4.5 4.5m0-4.5-4.5 4.5M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z" />
+                                </svg>
+                                {/* <video
+                                  src="/pop.mp4"
+                                  type="video/mp4"
+                                  muted
+                                  playsInline
+                                  autoPlay
+                                  controls
+                                /> */}
+                                <img className="w-full h-full object-cover" src={marker === "m1" ? bedimg : marker === "m2" ? kitimg : loungeimg} alt="" />
+                              </div>
+                            </div>
+                          </>
+                        )}
+                      </div>
+                    )}
+                  </>
                 </div>
               </div>
             </section>
@@ -576,7 +631,7 @@ function LandingPage() {
                   <h2 className="text-[42px] md:text-[64px] mb-[30px] mt-[90px] font-bold leading-snug">Gallery</h2>
                   <div className="w-full border-b border-gray-400 h-[1px]"></div>
 
-                    <Gallery />
+                  <Gallery />
 
                 </div>
               </div>
