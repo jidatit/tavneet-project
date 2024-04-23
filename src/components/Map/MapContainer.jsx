@@ -7,15 +7,15 @@ function MapContainer() {
 
   const defaultProps = {
     center: {
-      lat: 37.7749, // Latitude of your center point
-      lng: -122.4194, // Longitude of your center point
+      lat: 43.651070, // Latitude of your center point
+      lng: -79.347015, // Longitude of your center point
     },
     zoom: 14,
   };
   const makerProps = {
     center: {
-      lat: 37.7749, // Latitude of your center point
-      lng: -122.4194, // Longitude of your center point
+      lat: 43.651070, // Latitude of your center point
+      lng: -79.347015, // Longitude of your center point
     },
     zoom: 14,
   };
