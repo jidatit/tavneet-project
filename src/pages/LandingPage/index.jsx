@@ -132,7 +132,7 @@ function LandingPage() {
   })
 
   return (
-    <div className={`font-poppins bg-black  ${isLoading?'overflow-hidden':''}`} >
+    <div className={`font-poppins bg-black `} >
       {
         (<>
           {/* Header done */}
