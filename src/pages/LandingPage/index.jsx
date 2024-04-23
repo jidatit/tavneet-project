@@ -19,8 +19,8 @@ function LandingPage() {
   const [sectionHeight, setSectionHeight] = useState(false);
   const [isLoading, setIsLoading] = useState(true);
   const [isHeroVisible, setIsHeroVisible] = useState(false);
-  // const [isSegmentsVisible, setIsSegmentsVisible] = useState(false);
-  // const [isCardVideoVisible, setIsCardVideoVisible] = useState(false);
+  const [isSegmentsVisible, setIsSegmentsVisible] = useState(false);
+  const [isCardVideoVisible, setIsCardVideoVisible] = useState(false);
   const [showVideoPlayer, setShowVideoPlayer] = useState(false);
   const [showVideoPlayerInterior, setShowVideoPlayerInterior] = useState(false);
   const [videopop, setvideopop] = useState(false);
@@ -326,7 +326,7 @@ function LandingPage() {
                       <video
                         id="segments-video"
                         className={`absolute inset-0 w-full h-full object-cover z-0 `}
-                        src="src/assets/videos/ex.mp4"
+                        src="/ex.mp4"
                         type="video/mp4"
                         muted
                         playsInline
@@ -340,7 +340,7 @@ function LandingPage() {
                       <video
                         id="segments-video"
                         className={`absolute inset-0 w-full h-full object-cover z-0 `}
-                        src="src/assets/videos/in.mp4"
+                        src="/in.mp4"
                         type="video/mp4"
                         muted
                         playsInline
@@ -488,7 +488,7 @@ function LandingPage() {
                                 <path strokeLinecap="round" strokeLinejoin="round" d="m9.75 9.75 4.5 4.5m0-4.5-4.5 4.5M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z" />
                               </svg>
                               <video
-                                src="src/assets/videos/pop.mp4"
+                                src="/pop.mp4"
                                 type="video/mp4"
                                 muted
                                 playsInline
