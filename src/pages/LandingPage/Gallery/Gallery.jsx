@@ -78,6 +78,18 @@ function Gallery() {
                     <div>
                         <img className="h-full w-full object-cover" src={img1} alt="" />
                     </div>
+                    <div className=" h-full xl:min-h-[390px] lg:min-h-[300px] md:min-h-[240px] min-h-[210px] !flex justify-center items-center ">
+                        <video
+                            id="segments-video"
+                            className={`w-full min-h-full object-cover my-auto `}
+                            src="\1.mp4"
+                            type="video/mp4"
+                            muted
+                            playsInline
+                            autoPlay
+                            loop
+                        />
+                    </div>
                     <div>
                         <img className="h-full w-full object-cover" src={img2} alt="" />
                     </div>
@@ -91,11 +103,12 @@ function Gallery() {
                         <video
                             id="segments-video"
                             className={`w-full min-h-full object-cover my-auto `}
-                            src="/ex.mp4"
+                            src="\2.mp4"
                             type="video/mp4"
                             muted
                             playsInline
                             autoPlay
+                            loop
                         />
                     </div>
                 </Slider>
