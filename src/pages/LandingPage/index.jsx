@@ -846,7 +846,7 @@ function LandingPage() {
                       <div id="video-container" className="w-full h-full bg-black fixed top-0 left-0 z-10">
                         <video
                           id="segments-video"
-                          className={`absolute inset-0 w-full h-[50vh] md:h-full object-cover z-0 `}
+                          className={`absolute inset-0 w-full h-[50vh] md:h-full object-cover z-0 md:m-0 m-auto`}
                           src="/lg/Lgfc.mp4"
                           type="video/mp4"
                           muted
@@ -860,7 +860,7 @@ function LandingPage() {
                         <video
                           onEnded={() => { setShowVideoPlayer3(false); setShowVideoPlayerInterior3(false); setplayInt3(false); setgotoextvideo3(false); setcloseapartment3(false) }}
                           id="segments-video"
-                          className={`absolute inset-0 w-full h-[50vh] md:h-full object-cover z-0 `}
+                          className={`absolute inset-0 w-full h-[50vh] md:h-full object-cover z-0 md:m-0 m-auto`}
                           src="/lg/Lggotolist.mp4"
                           type="video/mp4"
                           muted
@@ -873,7 +873,7 @@ function LandingPage() {
                       <div id="video-container" className="w-full h-full bg-black fixed top-0 left-0 z-10">
                         <video
                           id="segments-video"
-                          className={`absolute inset-0 w-full h-[50vh] md:h-full object-cover z-0 `}
+                          className={`absolute inset-0 w-full h-[50vh] md:h-full object-cover z-0 md:m-0 m-auto`}
                           src="/lg/Lggotoext.mp4"
                           type="video/mp4"
                           muted
@@ -887,7 +887,7 @@ function LandingPage() {
                         <video
                           onEnded={handleplayInt3}
                           id="segments-video"
-                          className={`absolute inset-0 w-full h-[50vh] md:h-full object-cover z-0 `}
+                          className={`absolute inset-0 w-full h-[50vh] md:h-full object-cover z-0 md:m-0 m-auto`}
                           src="/lg/Lggotoint.mp4"
                           type="video/mp4"
                           muted
@@ -897,7 +897,7 @@ function LandingPage() {
                         {playInt3 && (<video
                           id="segments-video"
                           onEnded={() => setgotoextvideo3(false)}
-                          className={`absolute inset-0 w-full h-[50vh] md:h-full object-cover z-0 `}
+                          className={`absolute inset-0 w-full h-[50vh] md:h-full object-cover z-0 md:m-0 m-auto `}
                           src="/lg/Lgint.mp4"
                           type="video/mp4"
                           muted
@@ -933,73 +933,7 @@ function LandingPage() {
                             <p className="text-white font-bold">TO HOUSE LIST</p>
                           </div>
 
-                          <div className={`w-full ${showVideoPlayerInterior3 !== true ? "flex" : "md:hidden flex"} gap-1 pt-10 px-5 md:p-5 flex-col justify-start items-start bg-transparent`}>
-                            <div className={`w-full flex flex-col justify-center items-center backdrop-blur-1xl border-[#7a7a7a] bg-[rgba(0,0,0,0.6)] shadow-lg isolate rounded-[20px]`}>
-                              <div className="w-full py-3 px-7 grid grid-cols-4 justify-center items-center rounded-lg">
-                                <div className="flex flex-col justify-center items-center gap-2 pr-6">
-                                  <p className=" text-3xl">E38</p>
-                                </div>
-                                <div className="flex flex-col justify-center items-center gap-2  ">
-                                  <p className=" text-[10px]">house</p>
-                                  <p className=" text-base">38A</p>
-                                </div>
-                                <div className="flex flex-col justify-center items-center gap-2  ">
-                                  <p className=" text-[10px]">Plot, M²</p>
-                                  <p className=" text-base">900</p>
-                                </div>
-                                <div className="flex flex-col justify-center items-center gap-2">
-                                  <p className=" text-[10px]">House, M²</p>
-                                  <p className=" text-base">147</p>
-                                </div>
-                              </div>
-                            </div>
-                            <div className="w-full flex flex-col justify-center items-center backdrop-blur-1xl border-[#7a7a7a] bg-[rgba(0,0,0,0.6)] shadow-lg isolate rounded-[20px]">
-                              <div className="w-full py-3 gap-y-5 gap-x-4 px-7 grid grid-cols-4 justify-center items-center rounded-lg">
-                                <div className="flex flex-col justify-center items-start gap-2 ">
-                                  <p className=" text-[10px]">Date</p>
-                                  <p className=" text-1xl">3Q/2023</p>
-                                </div>
-                                <div className="flex flex-col justify-center items-center gap-2  ">
-                                  <p className=" text-[10px]">house</p>
-                                  <p className=" text-base">38A</p>
-                                </div>
-                                <div className="flex flex-col justify-center items-center gap-2  ">
-                                  <p className=" text-[10px]">Plot, M²</p>
-                                  <p className=" text-base">900</p>
-                                </div>
-                                <div className="flex flex-col justify-center items-center gap-2">
-                                  <p className=" text-[10px]">House, M²</p>
-                                  <p className=" text-base">147</p>
-                                </div>
-                                <div className="flex flex-col justify-center items-start gap-2 pr-6"></div>
-                                <div className="flex flex-col justify-center items-center gap-2  ">
-                                  <p className=" text-[10px]">house</p>
-                                  <p className=" text-base">38A</p>
-                                </div>
-                                <div className="flex flex-col justify-center items-center gap-2  ">
-                                  <p className=" text-[10px]">Plot, M²</p>
-                                  <p className=" text-base">900</p>
-                                </div>
-                                <div className="flex flex-col justify-center items-center gap-2">
-                                  <p className=" text-[10px]">House, M²</p>
-                                  <p className=" text-base">147</p>
-                                </div>
-                                <div className="flex flex-col justify-center items-start gap-2 pr-6"></div>
-                                <div className="flex flex-col justify-center items-center gap-2 pr-6 "></div>
-                                <div className="flex flex-col justify-center items-center gap-2 pr-6 "></div>
-                              </div>
-                              <div className="border-[#e0dfdf] px-3 w-[95%] border-t-[1px]"></div>
-                              <div className="w-full py-3 px-3 flex flex-row justify-between items-center">
-                                <div className="flex flex-col justify-center items-start gap-2 py-2">
-                                  <p className="text-[10px]">HOUSE DOCUMENTATION</p>
-                                  <p className="text-[12px]">HOUSE DOCUMENTATION</p>
-                                </div>
-                                <button className=" px-3 md:px-10 py-3 text-[12px] md:text-[14px] font-bold rounded-[30px] bg-white text-black uppercase">Book a call</button>
-                              </div>
-                            </div>
-                          </div>
-
-                          <div className="flex mb-[20px] flex-col lg:flex-row items-center justify-center gap-2 w-full">
+                          <div className="flex mb-[20px] flex-col lg:flex-row items-center md:justify-start justify-center gap-2 w-full">
                             {showVideoPlayer3 === true && showVideoPlayerInterior3 === false && (
                               <button
                                 className="px-5 mt-[10px] py-3 text-[14px] font-bold rounded-[30px] text-black uppercase bg-white p-2 md:w-fit w-full"
@@ -1028,7 +962,7 @@ function LandingPage() {
                         <video
                           onEnded={() => { setShowVideoPlayer4(false); setplayInt4(false); setcloseapartment4(false) }}
                           id="segments-video"
-                          className={`absolute inset-0 w-full h-[50vh] md:h-full object-cover z-0 `}
+                          className={`absolute inset-0 w-full h-[50vh] md:h-full object-cover z-0 md:m-0 m-auto `}
                           src="/park/parkgotolist.mp4"
                           type="video/mp4"
                           muted
@@ -1042,7 +976,7 @@ function LandingPage() {
                         <video
                           onEnded={handleplayInt4}
                           id="segments-video"
-                          className={`absolute inset-0 w-full h-[50vh] md:h-full object-cover z-0 `}
+                          className={`absolute inset-0 w-full h-[50vh] md:h-full object-cover z-0 md:m-0 m-auto `}
                           src="/park/parkfc.mp4"
                           type="video/mp4"
                           muted
@@ -1051,7 +985,7 @@ function LandingPage() {
                         />
                         {playInt4 && (<video
                           id="segments-video"
-                          className={`absolute inset-0 w-full h-[50vh] md:h-full object-cover z-0 `}
+                          className={`absolute inset-0 w-full h-[50vh] md:h-full object-cover z-0 md:m-0 m-auto `}
                           src="/park/parkext.mp4"
                           type="video/mp4"
                           muted
@@ -1088,71 +1022,6 @@ function LandingPage() {
                             <p className="text-white font-bold">TO HOUSE LIST</p>
                           </div>
 
-                          <div className={`w-full flex gap-1 pt-10 px-5 md:p-5 flex-col justify-start items-start bg-transparent`}>
-                            <div className={`w-full flex flex-col justify-center items-center backdrop-blur-1xl border-[#7a7a7a] bg-[rgba(0,0,0,0.6)] shadow-lg isolate rounded-[20px]`}>
-                              <div className="w-full py-3 px-7 grid grid-cols-4 justify-center items-center rounded-lg">
-                                <div className="flex flex-col justify-center items-center gap-2 pr-6">
-                                  <p className=" text-3xl">E38</p>
-                                </div>
-                                <div className="flex flex-col justify-center items-center gap-2  ">
-                                  <p className=" text-[10px]">house</p>
-                                  <p className=" text-base">38A</p>
-                                </div>
-                                <div className="flex flex-col justify-center items-center gap-2  ">
-                                  <p className=" text-[10px]">Plot, M²</p>
-                                  <p className=" text-base">900</p>
-                                </div>
-                                <div className="flex flex-col justify-center items-center gap-2">
-                                  <p className=" text-[10px]">House, M²</p>
-                                  <p className=" text-base">147</p>
-                                </div>
-                              </div>
-                            </div>
-                            <div className="w-full flex flex-col justify-center items-center backdrop-blur-1xl border-[#7a7a7a] bg-[rgba(0,0,0,0.6)] shadow-lg isolate rounded-[20px]">
-                              <div className="w-full py-3 gap-y-5 gap-x-4 px-7 grid grid-cols-4 justify-center items-center rounded-lg">
-                                <div className="flex flex-col justify-center items-start gap-2 ">
-                                  <p className=" text-[10px]">Date</p>
-                                  <p className=" text-1xl">3Q/2023</p>
-                                </div>
-                                <div className="flex flex-col justify-center items-center gap-2  ">
-                                  <p className=" text-[10px]">house</p>
-                                  <p className=" text-base">38A</p>
-                                </div>
-                                <div className="flex flex-col justify-center items-center gap-2  ">
-                                  <p className=" text-[10px]">Plot, M²</p>
-                                  <p className=" text-base">900</p>
-                                </div>
-                                <div className="flex flex-col justify-center items-center gap-2">
-                                  <p className=" text-[10px]">House, M²</p>
-                                  <p className=" text-base">147</p>
-                                </div>
-                                <div className="flex flex-col justify-center items-start gap-2 pr-6"></div>
-                                <div className="flex flex-col justify-center items-center gap-2  ">
-                                  <p className=" text-[10px]">house</p>
-                                  <p className=" text-base">38A</p>
-                                </div>
-                                <div className="flex flex-col justify-center items-center gap-2  ">
-                                  <p className=" text-[10px]">Plot, M²</p>
-                                  <p className=" text-base">900</p>
-                                </div>
-                                <div className="flex flex-col justify-center items-center gap-2">
-                                  <p className=" text-[10px]">House, M²</p>
-                                  <p className=" text-base">147</p>
-                                </div>
-                                <div className="flex flex-col justify-center items-start gap-2 pr-6"></div>
-                                <div className="flex flex-col justify-center items-center gap-2 pr-6 "></div>
-                                <div className="flex flex-col justify-center items-center gap-2 pr-6 "></div>
-                              </div>
-                              <div className="border-[#e0dfdf] px-3 w-[95%] border-t-[1px]"></div>
-                              <div className="w-full py-3 px-3 flex flex-row justify-between items-center">
-                                <div className="flex flex-col justify-center items-start gap-2 py-2">
-                                  <p className="text-[10px]">HOUSE DOCUMENTATION</p>
-                                  <p className="text-[12px]">HOUSE DOCUMENTATION</p>
-                                </div>
-                                <button className=" px-3 md:px-10 py-3 text-[12px] md:text-[14px] font-bold rounded-[30px] bg-white text-black uppercase">Book a call</button>
-                              </div>
-                            </div>
-                          </div>
                         </div>
                       </div>
                     )}
